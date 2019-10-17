@@ -13,12 +13,16 @@ class ApiClient {
     static func getPosts(userId: Int) -> Observable<[Post]> {
         return request(ApiRouter.getPosts(userId: userId))
     }
+
+    static func updatePost(post: Post) -> Observable<Post> {
+        return request(ApiRouter.updatePost(post: post))
+    }
     
     private static func request<T: Codable> (_ urlConvertible: URLRequestConvertible) -> Observable<T> {
         //Create an RxSwift observable, which will be the one to call the request when subscribed to
         return Observable<T>.create { observer in
             //Trigger the HttpRequest using AlamoFire (AF)
-            let request = AF.request(urlConvertible).responseDecodable(of: T.self) { response in
+            let request = AF.request(urlConvertible).validate().responseDecodable(of: T.self) { response in
                 //Check the result from Alamofire's response and check if it's a success or a failure
                 switch response.result {
                     case .success(let value):

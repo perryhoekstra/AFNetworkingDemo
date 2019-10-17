@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  AFNetworkingDemo
 //
-//  Copyright © 2019 Travel Labs. All rights reserved.
+//  Copyright © 2019 Norsemen Solutions. All rights reserved.
 //
 
 import UIKit
@@ -18,6 +18,38 @@ class ViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var postsList: [Post] = []
     private let hud = JGProgressHUD(style: .dark)
+    
+    private func postData(post: Post) {
+        hud.show(in: self.view)
+               
+        ApiClient.updatePost(post: post)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {
+                post in
+                let alertController = UIAlertController(title: "Post Success", message: post.toString(), preferredStyle: .alert)
+                            
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                
+                    self.present(alertController, animated: true, completion: nil)
+                       
+                    self.hud.dismiss(afterDelay: 0.5)
+                },
+                onError: { error in
+                    self.hud.dismiss(afterDelay: 0.5)
+                       
+                    switch error {
+                        case ApiError.conflict:
+                            self.errorMessageLabel.text = "Conflict error"
+                        case ApiError.forbidden:
+                            self.errorMessageLabel.text = "Forbidden error"
+                        case ApiError.notFound:
+                            self.errorMessageLabel.text = "Not found error"
+                        default:
+                            self.errorMessageLabel.text = "Unknown error: [" + error.localizedDescription + "]"
+                    }
+                })
+            .disposed(by: disposeBag)
+    }
     
     private func queryData() {
         hud.show(in: self.view)
@@ -76,5 +108,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return postCell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPost = postsList[indexPath.row]
+        
+        postData(post: selectedPost)
+    }
 }
 

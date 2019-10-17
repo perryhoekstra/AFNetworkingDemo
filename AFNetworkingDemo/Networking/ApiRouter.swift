@@ -12,6 +12,8 @@ enum ApiRouter: URLRequestConvertible {
     
     case getPosts(userId: Int)
     
+    case updatePost(post: Post)
+    
     //MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
         let url = try Constants.baseUrl.asURL()
@@ -25,17 +27,17 @@ enum ApiRouter: URLRequestConvertible {
         urlRequest.setValue(Constants.ContentType.json.rawValue, forHTTPHeaderField: Constants.HttpHeaderField.acceptType.rawValue)
         urlRequest.setValue(Constants.ContentType.json.rawValue, forHTTPHeaderField: Constants.HttpHeaderField.contentType.rawValue)
         
-        //Encoding
-        let encoding: ParameterEncoding = {
-            switch method {
-                case .get:
-                    return URLEncoding.default
-                default:
-                    return JSONEncoding.default
-            }
-        }()
+        switch self {
+            case .getPosts(let userId):
+                let params = [Constants.Parameters.userId : userId]
+            
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+            
+            case .updatePost(let post):
+                urlRequest = try! JSONEncoding.default.encode(urlRequest, with: post.json)
+        }
         
-        return try encoding.encode(urlRequest, with: parameters)
+        return urlRequest
     }
     
     //MARK: - HttpMethod
@@ -44,6 +46,8 @@ enum ApiRouter: URLRequestConvertible {
         switch self {
             case .getPosts:
                 return .get
+            case .updatePost:
+                return .post
         }
     }
     
@@ -51,18 +55,8 @@ enum ApiRouter: URLRequestConvertible {
     //The path is the part following the base url
     private var path: String {
         switch self {
-            case .getPosts:
+            case .getPosts, .updatePost:
                 return "posts"
-        }
-    }
-    
-    //MARK: - Parameters
-    //This is the queries part, it's optional because an endpoint can be without parameters
-    private var parameters: Parameters? {
-        switch self {
-            case .getPosts(let userId):
-                //A dictionary of the key (From the constants file) and its value is returned
-                return [Constants.Parameters.userId : userId]
         }
     }
 }

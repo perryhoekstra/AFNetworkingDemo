@@ -2,8 +2,7 @@
 //  SceneDelegate.swift
 //  AFNetworkingDemo
 //
-//  Created by Travel Labs MacBook Pro on 10/9/19.
-//  Copyright © 2019 Travel Labs. All rights reserved.
+//  Copyright © 2019 Norsemen Solutions. All rights reserved.
 //
 
 import UIKit

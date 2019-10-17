@@ -11,6 +11,7 @@ struct Constants {
     static let baseUrl = "https://jsonplaceholder.typicode.com"
     
     struct Parameters {
+        static let body = "body"
         static let userId = "userId"
     }
     
@@ -26,5 +27,7 @@ struct Constants {
     enum ContentType: String {
         case json = "application/json"
     }
+    
+    typealias Json = [String: Any]
 }
 

@@ -18,7 +18,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - JGProgressHUD
     - Reusable
@@ -34,4 +34,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 424ee7c8e8c51e651853f250d85a9476f1c5bea8
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3
