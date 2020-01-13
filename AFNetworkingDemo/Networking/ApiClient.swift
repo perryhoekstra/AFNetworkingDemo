@@ -32,6 +32,8 @@ class ApiClient {
                     case .failure(let error):
                         //Something went wrong, switch on the status code and return the error
                         switch response.response?.statusCode {
+                            case 400:
+                                observer.onError(ApiError.badRequest)
                             case 403:
                                 observer.onError(ApiError.forbidden)
                             case 404:

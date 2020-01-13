@@ -34,7 +34,7 @@ enum ApiRouter: URLRequestConvertible {
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
             
             case .updatePost(let post):
-                urlRequest = try! JSONEncoding.default.encode(urlRequest, with: post.json)
+                urlRequest = try! JSONParameterEncoder.default.encode(post, into: urlRequest)
         }
         
         return urlRequest

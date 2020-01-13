@@ -1,6 +1,6 @@
 PODS:
-  - Alamofire (5.0.0-rc.2)
-  - JGProgressHUD (2.0.4)
+  - Alamofire (5.0.0-rc.3)
+  - JGProgressHUD (2.1)
   - Reusable (4.1.0):
     - Reusable/Storyboard (= 4.1.0)
     - Reusable/View (= 4.1.0)
@@ -18,7 +18,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - JGProgressHUD
     - Reusable
@@ -26,8 +26,8 @@ SPEC REPOS:
     - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
-  JGProgressHUD: 62658b14e72cccf179efc7a13bcb54d30b92fc22
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
